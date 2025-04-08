@@ -25,7 +25,7 @@ Este repositório contém o script R e os dados utilizados para realizar uma an�
     ```
 5.  Execute o script R:
     ```R
-    source("./script/analise_sna_solos.R")
+    source("./script/MBA_Complete.R")
     ```
 
 ## Dependências
