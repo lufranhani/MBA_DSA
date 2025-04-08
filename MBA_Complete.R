@@ -15,9 +15,6 @@ set.seed(123)
 ### ----- Limpeza do espaço de trabalho do R 
 rm(list=ls())
 
-### ----- Diretorio de trabalho
-setwd("C:/Users/lufra/OneDrive/Área de Trabalho/Análise Solos")
-
 # Leitura da tabela contendo os dados
 df <- read.table(file = "MBA.csv", dec = ".", sep = ";", header = TRUE)
 
