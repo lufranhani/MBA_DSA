@@ -13,11 +13,11 @@ Este repositório contém o script R e os dados utilizados para realizar uma an�
 
 1.  Clone este repositório para o seu computador:
     ```bash
-    git clone [https://github.com/SEU_USUARIO/analise-solos-sna.git](https://www.google.com/search?q=https://github.com/SEU_USUARIO/analise-solos-sna.git)
+    git clone [https://github.com/SEU_USUARIO/MBA_DSA.git](https://github.com/SEU_USUARIO/MBA_DSA.git)
     ```
 2.  Navegue até o diretório do repositório:
     ```bash
-    cd analise-solos-sna
+    cd MBA_DSA
     ```
 3.  Abra o R (ou RStudio).
 4.  Defina o diretório de trabalho para a raiz do repositório:
