@@ -15,8 +15,8 @@ set.seed(123)
 ### ----- Limpeza do espaço de trabalho do R 
 rm(list=ls())
 
-# Leitura da tabela contendo os dados
-df <- read.table(file = "MBA.csv", dec = ".", sep = ";", header = TRUE)
+# Leitura da tabela contendo os dados (Usar caminho relativo)
+df <- read.table(file = "./data/MBA.csv", dec = ".", sep = ";", header = TRUE)
 
 #####################  Calcular a matriz de correlação de Spearman
 # Calcular a matriz de correlação de Spearman
