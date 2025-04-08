@@ -5,8 +5,9 @@ Este repositório contém o script R e os dados utilizados para realizar uma an�
 ## Arquivos
 
 * `data/MBA.csv`: Arquivo contendo os dados das características do solo.
-* `script/MBA_complete.R`: Script R para realizar a análise de redes sociais.
+* `script/MBA_Complete.R`: Script R para realizar a análise de redes sociais.
 * `README.md`: Este arquivo.
+* `.gitignore`: Especifica arquivos que o Git deve ignorar.
 
 ## Como Executar o Script
 
