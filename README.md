@@ -1,5 +1,7 @@
 EN/PT-BR
 
+[![DOI](https://zenodo.org/badge/962818443.svg)](https://doi.org/10.5281/zenodo.15182283)
+
 # Social Network Analysis of Soil Data
 
 This repository contains the R script and data used to perform a social network analysis (SNA) on soil characteristic data from a transition area between the Brazilian Cerrado and the Atlantic Forest.
@@ -98,9 +100,6 @@ Certifique-se de que os seguintes pacotes R estejam instalados:
 * ggcorrplot
 * tidyr
 * corrplot
-
-
-[![DOI](https://zenodo.org/badge/962818443.svg)](https://doi.org/10.5281/zenodo.15182283)
 
 Você pode instalá-los usando o seguinte comando no R:
 
