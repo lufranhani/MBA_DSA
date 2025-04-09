@@ -8,7 +8,7 @@ This repository contains the R script and data used to perform a social network 
 
 ## Files
 
-* `data/MBA.csv`: File containing the soil characteristic data.
+* `data/MBA.txt`: File containing the soil characteristic data.
 * `script/MBA_Complete.R`: R script to perform the social network analysis.
 * `README.md`: This file.
 * `.gitignore`: Specifies files that Git should ignore.
@@ -60,7 +60,7 @@ Este repositório contém o script R e os dados utilizados para realizar uma an�
 
 ## Arquivos
 
-* `data/MBA.csv`: Arquivo contendo os dados das características do solo.
+* `data/MBA.txt`: Arquivo contendo os dados das características do solo.
 * `script/MBA_Complete.R`: Script R para realizar a análise de redes sociais.
 * `README.md`: Este arquivo.
 * `.gitignore`: Especifica arquivos que o Git deve ignorar.
