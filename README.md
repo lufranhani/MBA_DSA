@@ -101,8 +101,3 @@ Certifique-se de que os seguintes pacotes R estejam instalados:
 * ggcorrplot
 * tidyr
 * corrplot
-
-Você pode instalá-los usando o seguinte comando no R:
-
-```R
-install.packages(c("igraph", "tidyverse", "qgraph", "GGally", "dplyr", "purrr", "RColorBrewer", "viridis", "ggcorrplot", "tidyr", "corrplot"))
