@@ -55,7 +55,6 @@ You can install them using the following command in R:
 install.packages(c("igraph", "tidyverse", "qgraph", "GGally", "dplyr", "purrr", "RColorBrewer", "viridis", "ggcorrplot", "tidyr", "corrplot"))
 
 
-____________________________________________________________________________________________________________________________________________________
 # Análise de Redes Sociais de Dados de Solos
 
 Este repositório contém o script R e os dados utilizados para realizar uma análise de redes sociais (SNA) em dados de características do solo de uma área de transição entre Cerrado e Mata Atlântica.
