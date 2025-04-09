@@ -18,86 +18,86 @@ rm(list=ls())
 # Leitura da tabela contendo os dados (Usar caminho relativo)
 df <- read.table(  file = "MBA.txt",  dec = ".",  sep = "\t",  header = T)
 
-#####################  Calcular a matriz de correlação de Spearman
+##################### Calcular a matriz de correlação de Spearman e p-valores
 # Calcular a matriz de correlação de Spearman
 cor_matrix <- cor(df, method = "spearman", use = "pairwise.complete.obs")
 
-# Calcular os p-valores
-cor_test <- function(x) {
-  m <- ncol(x)
-  p_matrix <- matrix(NA, m, m)
-  colnames(p_matrix) <- rownames(p_matrix) <- colnames(x)
-  
-  for (i in 1:m) {
-    for (j in 1:m) {
-      p_matrix[i, j] <- cor.test(x[, i], x[, j], method = "spearman")$p.value
-    }
-  }
-  return(p_matrix)
-}
-
-p_matrix <- cor_test(df)
-
-# Criar matriz de asteriscos para significância
-sig_matrix <-  ifelse(p_matrix < 0.05, "*", "")  # * para p < 0.05
-
-# Plotar a matriz de correlação de Spearman
-corrplot(cor_matrix, 
-         method = "color",         # Exibir como mapa de cores
-         type = "lower",           # Apenas a metade inferior da matriz
-         tl.col = "black",         # Cor dos rótulos das variáveis
-         tl.srt = 45,              # Rotação dos rótulos
-         addCoef.col = "black",    # Adicionar valores de correlação
-         p.mat = p_matrix,         # Matriz de p-valores
-         sig.level = c(0.05),      # Níveis de significância
-         insig = "label_sig",      # Adicionar "*" nas correlações significativas
-         number.cex = 0.4,         # Tamanho dos números das correlações
-         pch.cex = 0.1)            # **Tamanho dos `*` 
-
-
-
-##################### 
-### ----- Limpeza do espaço de trabalho do R 
-rm(list=ls())
-
-# Leitura da tabela contendo os dados
-df <- read.table(file = "MBA.csv", dec = ".", sep = ";", header = TRUE)
-
-# Função para calcular p-valores da correlação Spearman
+# Função para calcular p-valores da correlação Spearman (apenas a parte inferior da matriz)
 cor_pvalues <- function(x, method = "spearman") {
   n <- ncol(x)
   p_matrix <- matrix(NA, n, n)
   colnames(p_matrix) <- rownames(p_matrix) <- colnames(x)
   
   for (i in 1:n) {
-    for (j in 1:i) {  # Apenas parte inferior
+    for (j in 1:i) { # Apenas parte inferior
       if (i != j) {
-        test <- cor.test(x[, i], x[, j], method = method, exact = FALSE)  # Aproximação p/ empates
+        test <- cor.test(x[, i], x[, j], method = method, exact = FALSE) # Aproximação p/ empates
         p_matrix[i, j] <- test$p.value
       } else {
-        p_matrix[i, j] <- NA  # Remover autocorrelação
+        p_matrix[i, j] <- NA # Remover autocorrelação
       }
     }
   }
   return(p_matrix)
 }
 
-# Calcular matriz de correlação Spearman
-cor_matrix <- cor(df, method = "spearman", use = "pairwise.complete.obs")
-
 # Calcular matriz de p-valores
 p_matrix <- cor_pvalues(df)
 
-# Criar a rede no pacote "igraph"
-# Aplicar limiar de significância (p < 0.05) e limiar de correlação de 0.3
+# Criar matriz de asteriscos para significância (para o gráfico de correlação)
+sig_matrix <- ifelse(p_matrix < 0.05, "*", "") # * para p < 0.05
+
+# Plotar a matriz de correlação de Spearman
+corrplot(cor_matrix,
+         method = "color",       # Exibir como mapa de cores
+         type = "lower",         # Apenas a metade inferior da matriz
+         tl.col = "black",       # Cor dos rótulos das variáveis
+         tl.srt = 45,            # Rotação dos rótulos
+         addCoef.col = "black",  # Adicionar valores de correlação
+         p.mat = p_matrix,       # Matriz de p-valores
+         sig.level = c(0.05),     # Níveis de significância
+         insig = "label_sig",     # Adicionar "*" nas correlações significativas
+         number.cex = 0.7,       # Tamanho dos números das correlações (aumentei para melhor visualização)
+         pch.cex = 1.2)          # Tamanho dos `*` (aumentei para melhor visualização)
+
+##################### Criar a rede no pacote "igraph"
+# Aplicar limiar de significância (p < 0.05) e limiar de correlação de 0.3 para criar a rede
 binary_adj_matrix <- ifelse(p_matrix < 0.05 & abs(cor_matrix) > 0.3, 1, 0)
 
 # Criar a rede igraph a partir da matriz binária
 net <- graph_from_adjacency_matrix(binary_adj_matrix, mode = "directed", diag = FALSE)
 
-# --- Extrair os pesos das arestas existentes ---
-edge_list <- as_edgelist(net)
-edge_weights <- abs(cor_matrix[edge_list])
+# Calcular os graus dos nós
+degree_values <- degree(net)
+
+# Obter os graus únicos e ordenados para criar a legenda
+unique_degrees <- sort(unique(degree_values))
+n_unique_degrees <- length(unique_degrees)
+
+# Escolher a paleta de cores viridis com base no número de graus únicos
+degree_palette <- viridis(n_unique_degrees)
+
+# Mapear os graus dos nós para as cores da paleta
+vertex_colors <- degree_palette[match(degree_values, unique_degrees)]
+
+# Plotar a rede com cores baseadas no grau e adicionar legenda
+plot(net,
+     layout = layout.fruchterman.reingold,
+     vertex.label = V(net)$name,
+     vertex.size = 10,
+     vertex.color = vertex_colors,
+     edge.arrow.size = 0.2,
+     edge.width = E(net)$weight * 2,
+     edge.color = "gray50",
+     main = "Rede de Correlações Colorida por Grau (Número de Conexões)")
+
+# Adicionar legenda
+legend("bottomright",
+       legend = unique_degrees,
+       pch = 16,
+       col = degree_palette,
+       cex = 0.8,
+       title = "Grau")
 
 ##################### CRIAÇÃO DE ARQUIVOS DE NÓS E ARESTAS PARA USAR NO GEPHI ###################
 # 1. Create the Nodes File:
@@ -251,4 +251,5 @@ stability_results <- stability_results %>%
 # Mostra os resultados de estabilidade da rede após a remoção dos nós
 print("Stability Analysis (Impact of Removing Each Node):")
 print(stability_results)
+
 
