@@ -53,6 +53,8 @@ You can install them using the following command in R:
 
 ```R
 install.packages(c("igraph", "tidyverse", "qgraph", "GGally", "dplyr", "purrr", "RColorBrewer", "viridis", "ggcorrplot", "tidyr", "corrplot"))
+
+
 ____________________________________________________________________________________________________________________________________________________
 # Análise de Redes Sociais de Dados de Solos
 
