@@ -16,7 +16,7 @@ set.seed(123)
 rm(list=ls())
 
 # Leitura da tabela contendo os dados (Usar caminho relativo)
-df <- read.table(file = "./data/MBA.csv", dec = ".", sep = ";", header = TRUE)
+df <- read.table(  file = "MBA.txt",  dec = ".",  sep = "\t",  header = T)
 
 #####################  Calcular a matriz de correlação de Spearman
 # Calcular a matriz de correlação de Spearman
